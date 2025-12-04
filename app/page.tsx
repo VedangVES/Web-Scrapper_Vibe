@@ -52,7 +52,7 @@ export default function Home() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50">
+    <div className="min-h-screen bg-white">
       {/* Top Navigation Bar */}
       <div className="fixed top-0 left-0 right-0 bg-white border-b border-gray-200 shadow-sm z-50">
         <div className="flex justify-between items-center px-8 py-4">
