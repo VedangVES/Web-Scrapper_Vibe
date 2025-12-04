@@ -86,19 +86,19 @@ export default function Home() {
         >
           {/* Title */}
           <h1 className="text-5xl font-bold text-center text-purple-600 mb-3">Web Scraper</h1>
-          <p className="text-center text-gray-600 text-lg mb-8">Extract data from any website with AI-powered analysis</p>
+          <p className="text-center text-gray-700 text-lg mb-8">Extract data from any website with AI-powered analysis</p>
 
           {/* URL Input */}
           <div className="mb-8">
-            <label className="block text-lg font-semibold text-gray-800 mb-3">Website URL</label>
+            <label className="block text-lg font-semibold text-gray-900 mb-3">Website URL</label>
             <div className="relative">
-              <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
+              <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-500 w-5 h-5" />
               <input
                 type="url"
                 value={url}
                 onChange={(e) => setUrl(e.target.value)}
                 placeholder="https://example.com"
-                className="w-full pl-12 pr-4 py-4 border-2 border-gray-300 rounded-xl focus:outline-none focus:border-purple-500 focus:ring-2 focus:ring-purple-200 transition-all text-base"
+                className="w-full pl-12 pr-4 py-4 border-2 border-gray-300 rounded-xl focus:outline-none focus:border-purple-500 focus:ring-2 focus:ring-purple-200 transition-all text-base text-gray-900 placeholder-gray-500"
                 onKeyPress={(e) => e.key === 'Enter' && handleScrape()}
               />
             </div>
@@ -106,27 +106,27 @@ export default function Home() {
 
           {/* Extraction Options */}
           <div className="mb-8">
-            <label className="block text-lg font-semibold text-gray-800 mb-4">Extraction Options</label>
+            <label className="block text-lg font-semibold text-gray-900 mb-4">Extraction Options</label>
             <div className="space-y-3">
               <label className="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-50 cursor-pointer">
                 <input type="checkbox" defaultChecked className="w-5 h-5 text-purple-600 rounded" />
-                <span className="text-gray-700 font-medium">Extract Images</span>
+                <span className="text-gray-800 font-medium">Extract Images</span>
               </label>
               <label className="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-50 cursor-pointer">
                 <input type="checkbox" defaultChecked className="w-5 h-5 text-purple-600 rounded" />
-                <span className="text-gray-700 font-medium">Analyze Sentiment</span>
+                <span className="text-gray-800 font-medium">Analyze Sentiment</span>
               </label>
               <label className="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-50 cursor-pointer">
                 <input type="checkbox" defaultChecked className="w-5 h-5 text-purple-600 rounded" />
-                <span className="text-gray-700 font-medium">Extract Links</span>
+                <span className="text-gray-800 font-medium">Extract Links</span>
               </label>
               <label className="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-50 cursor-pointer">
                 <input type="checkbox" defaultChecked className="w-5 h-5 text-purple-600 rounded" />
-                <span className="text-gray-700 font-medium">Extract Key Phrases</span>
+                <span className="text-gray-800 font-medium">Extract Key Phrases</span>
               </label>
               <label className="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-50 cursor-pointer">
                 <input type="checkbox" defaultChecked className="w-5 h-5 text-purple-600 rounded" />
-                <span className="text-gray-700 font-medium">Use Gemini</span>
+                <span className="text-gray-800 font-medium">Use Gemini</span>
               </label>
             </div>
           </div>
@@ -161,9 +161,9 @@ export default function Home() {
             transition={{ delay: 0.3 }}
             className="w-full max-w-2xl mt-12"
           >
-            <h2 className="text-2xl font-bold text-gray-800 mb-6">Recent Jobs</h2>
+            <h2 className="text-2xl font-bold text-gray-900 mb-6">Recent Jobs</h2>
             <div className="bg-gray-100 h-48 rounded-lg flex items-center justify-center">
-              <p className="text-gray-500">No recent jobs</p>
+              <p className="text-gray-600 font-medium">No recent jobs</p>
             </div>
           </motion.div>
         )}
@@ -252,32 +252,32 @@ export default function Home() {
                 transition={{ delay: 0.1 }}
                 className="bg-white rounded-xl p-8 shadow-lg border-2 border-gray-100"
               >
-                <h2 className="text-3xl font-bold text-gray-800 mb-3">{result.title}</h2>
-                <p className="text-gray-600 text-lg mb-6">{result.description}</p>
+                <h2 className="text-3xl font-bold text-gray-900 mb-3">{result.title}</h2>
+                <p className="text-gray-700 text-lg mb-6">{result.description}</p>
 
                 {/* Metadata Grid */}
                 <div className="grid grid-cols-4 gap-4">
                   <div className="bg-gradient-to-br from-blue-50 to-blue-100 p-5 rounded-lg border-2 border-blue-200">
-                    <p className="text-gray-600 text-sm font-semibold mb-2">📊 Word Count</p>
-                    <p className="text-3xl font-bold text-blue-600">
+                    <p className="text-gray-700 text-sm font-bold mb-2">📊 Word Count</p>
+                    <p className="text-3xl font-bold text-blue-700">
                       {(result.metadata.wordCount / 1000).toFixed(1)}K
                     </p>
                   </div>
                   <div className="bg-gradient-to-br from-purple-50 to-purple-100 p-5 rounded-lg border-2 border-purple-200">
-                    <p className="text-gray-600 text-sm font-semibold mb-2">🖼️ Images</p>
-                    <p className="text-3xl font-bold text-purple-600">
+                    <p className="text-gray-700 text-sm font-bold mb-2">🖼️ Images</p>
+                    <p className="text-3xl font-bold text-purple-700">
                       {result.metadata.imageCount}
                     </p>
                   </div>
                   <div className="bg-gradient-to-br from-green-50 to-green-100 p-5 rounded-lg border-2 border-green-200">
-                    <p className="text-gray-600 text-sm font-semibold mb-2">🔗 Links</p>
-                    <p className="text-3xl font-bold text-green-600">
+                    <p className="text-gray-700 text-sm font-bold mb-2">🔗 Links</p>
+                    <p className="text-3xl font-bold text-green-700">
                       {result.metadata.linkCount}
                     </p>
                   </div>
                   <div className="bg-gradient-to-br from-orange-50 to-orange-100 p-5 rounded-lg border-2 border-orange-200">
-                    <p className="text-gray-600 text-sm font-semibold mb-2">⏱️ Duration</p>
-                    <p className="text-3xl font-bold text-orange-600">
+                    <p className="text-gray-700 text-sm font-bold mb-2">⏱️ Duration</p>
+                    <p className="text-3xl font-bold text-orange-700">
                       {(result.metadata.scrapeDuration / 1000).toFixed(2)}s
                     </p>
                   </div>
@@ -296,7 +296,7 @@ export default function Home() {
                   <h3 className="text-xl font-bold text-white">Content Preview</h3>
                 </div>
                 <div className="p-8 max-h-96 overflow-y-auto bg-gray-50 border-t-2 border-gray-200">
-                  <p className="text-gray-800 leading-relaxed whitespace-pre-wrap font-medium">
+                  <p className="text-gray-900 leading-relaxed whitespace-pre-wrap font-medium text-lg">
                     {result.content.substring(0, 1500)}
                     {result.content.length > 1500 && '\n\n[Content truncated...]'}
                   </p>
@@ -317,7 +317,7 @@ export default function Home() {
                   </div>
                   <div className="p-8 bg-gray-50 border-t-2 border-gray-200">
                     <div className="bg-white p-6 rounded-lg border-2 border-purple-200">
-                      <p className="text-gray-800 leading-relaxed whitespace-pre-wrap">
+                      <p className="text-gray-900 leading-relaxed whitespace-pre-wrap text-lg">
                         {result.aiAnalysis}
                       </p>
                     </div>
@@ -347,14 +347,14 @@ export default function Home() {
                     {/* Headings */}
                     {result.extractedData.headings?.length > 0 && (
                       <div>
-                        <h4 className="text-lg font-bold text-gray-800 mb-4 flex items-center gap-2">
+                        <h4 className="text-lg font-bold text-gray-900 mb-4 flex items-center gap-2">
                           <span className="text-2xl">📝</span>
                           Headings ({result.extractedData.headings.length})
                         </h4>
                         <div className="grid grid-cols-2 gap-3">
                           {result.extractedData.headings.slice(0, 8).map((heading: string, i: number) => (
                             <div key={i} className="bg-white p-4 rounded-lg border-2 border-gray-200 hover:border-indigo-400 transition-colors">
-                              <p className="text-gray-700 font-medium">{heading}</p>
+                              <p className="text-gray-800 font-medium">{heading}</p>
                             </div>
                           ))}
                         </div>
@@ -364,15 +364,15 @@ export default function Home() {
                     {/* Images */}
                     {result.extractedData.images?.length > 0 && (
                       <div>
-                        <h4 className="text-lg font-bold text-gray-800 mb-4 flex items-center gap-2">
+                        <h4 className="text-lg font-bold text-gray-900 mb-4 flex items-center gap-2">
                           <span className="text-2xl">🖼️</span>
                           Images ({result.extractedData.images.length})
                         </h4>
                         <div className="grid grid-cols-3 gap-3">
                           {result.extractedData.images.slice(0, 6).map((img: any, i: number) => (
                             <div key={i} className="bg-white p-4 rounded-lg border-2 border-gray-200 hover:border-pink-400 transition-colors">
-                              <p className="text-gray-700 font-medium text-sm mb-2">Alt: {img.alt || 'N/A'}</p>
-                              <p className="text-gray-600 text-xs truncate break-all">{img.src}</p>
+                              <p className="text-gray-800 font-medium text-sm mb-2">Alt: {img.alt || 'N/A'}</p>
+                              <p className="text-gray-700 text-xs truncate break-all">{img.src}</p>
                             </div>
                           ))}
                         </div>
