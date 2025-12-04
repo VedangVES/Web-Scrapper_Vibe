@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Search, Sparkles, Loader2, AlertCircle, CheckCircle, Brain, Zap, Globe, MessageSquare, Eye } from 'lucide-react';
+import { Search, Sparkles, Loader2, AlertCircle, CheckCircle, Brain, Zap, Globe, MessageSquare, Download, Eye, Settings } from 'lucide-react';
 import Link from 'next/link';
 
 export default function Home() {
@@ -53,110 +53,44 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50">
-      {/* Sidebar Navigation */}
-      <div className="fixed left-0 top-0 h-full w-64 bg-gradient-to-b from-blue-600 via-purple-600 to-pink-600 shadow-2xl text-white p-6 z-40">
-        <motion.div
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="mb-12"
-        >
-          <div className="text-3xl font-bold mb-2 flex items-center gap-2">
-            <Sparkles className="w-8 h-8 text-yellow-300" />
-            WebScraper
+      {/* Top Navigation Bar */}
+      <div className="fixed top-0 left-0 right-0 bg-white border-b border-gray-200 shadow-sm z-50">
+        <div className="flex justify-between items-center px-8 py-4">
+          {/* Left - Logo */}
+          <div className="flex items-center gap-2">
+            <Zap className="w-6 h-6 text-purple-600" />
+            <span className="text-2xl font-bold text-purple-600">Scraper AI</span>
           </div>
-          <p className="text-blue-100 text-sm">AI-Powered Content Extraction</p>
-        </motion.div>
-
-        <nav className="space-y-4">
-          {[
-            { icon: '📊', label: 'Dashboard', href: '/stats', active: false },
-            { icon: '✨', label: 'New Scrape', href: '#', active: true },
-            { icon: '📁', label: 'My Projects', href: '#', active: false },
-            { icon: '⚙️', label: 'Settings', href: '#', active: false },
-            { icon: '❓', label: 'Help & Support', href: '#', active: false },
-          ].map((item, idx) => (
-            <motion.button
-              key={idx}
-              whileHover={{ x: 5 }}
-              className={`w-full text-left px-4 py-3 rounded-lg transition-all flex items-center gap-3 ${
-                item.active
-                  ? 'bg-white/30 border-2 border-white'
-                  : 'hover:bg-white/10'
-              }`}
-            >
-              <span className="text-xl">{item.icon}</span>
-              <span className="font-medium">{item.label}</span>
-            </motion.button>
-          ))}
-        </nav>
+          
+          {/* Right - Navigation Links */}
+          <div className="flex items-center gap-8">
+            <button className="text-gray-700 font-semibold hover:text-purple-600 transition-colors">Scraper</button>
+            <Link href="/stats">
+              <button className="text-gray-700 font-semibold hover:text-purple-600 transition-colors">Statistics</button>
+            </Link>
+            <button className="text-gray-700 hover:text-purple-600 transition-colors">
+              <Settings className="w-6 h-6" />
+            </button>
+          </div>
+        </div>
       </div>
 
       {/* Main Content */}
-      <div className="ml-64 min-h-screen p-8">
-        {/* Header */}
-        <div className="flex justify-between items-center mb-8">
-          <div>
-            <h1 className="text-4xl font-bold text-gray-800">Create New Scrape</h1>
-            <p className="text-gray-600 mt-2">Extract and analyze content with AI</p>
-          </div>
-          <Link href="/stats">
-            <motion.button
-              whileHover={{ scale: 1.05 }}
-              className="px-6 py-3 bg-gradient-to-r from-blue-500 to-purple-500 text-white rounded-lg font-semibold shadow-lg hover:shadow-xl transition-all"
-            >
-              📊 View Dashboard
-            </motion.button>
-          </Link>
-        </div>
+      <div className="pt-24 min-h-screen flex flex-col items-center justify-center px-4 pb-8">
 
-        {/* Input Form Card */}
+        {/* Main Input Form Card - Centered */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="bg-white rounded-2xl shadow-xl p-8 border-2 border-gray-100 mb-8"
+          className="w-full max-w-2xl bg-white rounded-3xl shadow-2xl p-12 border border-gray-200"
         >
-          {/* Mode Selection */}
-          <div className="mb-8">
-            <label className="block text-lg font-bold text-gray-800 mb-4">Scraping Mode</label>
-            <div className="grid grid-cols-2 gap-4">
-              <motion.button
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
-                onClick={() => {
-                  setMode('basic');
-                  setShowPromptInput(false);
-                  setCustomPrompt('');
-                }}
-                className={`p-6 rounded-xl font-bold text-lg transition-all border-2 ${
-                  mode === 'basic'
-                    ? 'bg-gradient-to-br from-blue-500 to-blue-600 text-white border-blue-700 shadow-lg'
-                    : 'bg-gray-100 text-gray-700 border-gray-300 hover:border-blue-400'
-                }`}
-              >
-                <Globe className="w-6 h-6 mx-auto mb-2" />
-                Quick Scrape
-                <p className="text-sm opacity-90 mt-1">Basic extraction</p>
-              </motion.button>
-              <motion.button
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
-                onClick={() => setMode('nerd')}
-                className={`p-6 rounded-xl font-bold text-lg transition-all border-2 ${
-                  mode === 'nerd'
-                    ? 'bg-gradient-to-br from-purple-500 to-pink-600 text-white border-purple-700 shadow-lg'
-                    : 'bg-gray-100 text-gray-700 border-gray-300 hover:border-purple-400'
-                }`}
-              >
-                <Brain className="w-6 h-6 mx-auto mb-2" />
-                AI Scrape
-                <p className="text-sm opacity-90 mt-1">Deep analysis</p>
-              </motion.button>
-            </div>
-          </div>
+          {/* Title */}
+          <h1 className="text-5xl font-bold text-center text-purple-600 mb-3">Web Scraper</h1>
+          <p className="text-center text-gray-600 text-lg mb-8">Extract data from any website with AI-powered analysis</p>
 
           {/* URL Input */}
-          <div className="mb-6">
-            <label className="block text-lg font-bold text-gray-800 mb-3">Target URL</label>
+          <div className="mb-8">
+            <label className="block text-lg font-semibold text-gray-800 mb-3">Website URL</label>
             <div className="relative">
               <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
               <input
@@ -170,52 +104,32 @@ export default function Home() {
             </div>
           </div>
 
-          {/* Data Type Selection */}
-          <div className="mb-6">
-            <label className="block text-lg font-bold text-gray-800 mb-3">Data Type</label>
-            <select className="w-full px-4 py-3 border-2 border-gray-300 rounded-xl focus:outline-none focus:border-purple-500 focus:ring-2 focus:ring-purple-200 transition-all text-base bg-white">
-              <option>Text, Images, Tables</option>
-              <option>Text Only</option>
-              <option>Images Only</option>
-              <option>Tables Only</option>
-            </select>
+          {/* Extraction Options */}
+          <div className="mb-8">
+            <label className="block text-lg font-semibold text-gray-800 mb-4">Extraction Options</label>
+            <div className="space-y-3">
+              <label className="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-50 cursor-pointer">
+                <input type="checkbox" defaultChecked className="w-5 h-5 text-purple-600 rounded" />
+                <span className="text-gray-700 font-medium">Extract Images</span>
+              </label>
+              <label className="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-50 cursor-pointer">
+                <input type="checkbox" defaultChecked className="w-5 h-5 text-purple-600 rounded" />
+                <span className="text-gray-700 font-medium">Analyze Sentiment</span>
+              </label>
+              <label className="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-50 cursor-pointer">
+                <input type="checkbox" defaultChecked className="w-5 h-5 text-purple-600 rounded" />
+                <span className="text-gray-700 font-medium">Extract Links</span>
+              </label>
+              <label className="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-50 cursor-pointer">
+                <input type="checkbox" defaultChecked className="w-5 h-5 text-purple-600 rounded" />
+                <span className="text-gray-700 font-medium">Extract Key Phrases</span>
+              </label>
+              <label className="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-50 cursor-pointer">
+                <input type="checkbox" defaultChecked className="w-5 h-5 text-purple-600 rounded" />
+                <span className="text-gray-700 font-medium">Use Gemini</span>
+              </label>
+            </div>
           </div>
-
-          {/* Custom Prompt for Nerd Mode */}
-          <AnimatePresence>
-            {mode === 'nerd' && (
-              <motion.div
-                initial={{ opacity: 0, height: 0 }}
-                animate={{ opacity: 1, height: 'auto' }}
-                exit={{ opacity: 0, height: 0 }}
-                className="mb-6"
-              >
-                <button
-                  onClick={() => setShowPromptInput(!showPromptInput)}
-                  className="flex items-center gap-2 text-purple-600 hover:text-purple-700 font-semibold mb-3 transition-colors"
-                >
-                  <MessageSquare className="w-5 h-5" />
-                  {showPromptInput ? 'Hide' : 'Customize'} AI Instructions
-                </button>
-                
-                {showPromptInput && (
-                  <motion.div
-                    initial={{ opacity: 0, y: -10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    className="relative"
-                  >
-                    <textarea
-                      value={customPrompt}
-                      onChange={(e) => setCustomPrompt(e.target.value)}
-                      placeholder="Tell Gemini AI what to analyze... (e.g., 'Extract all product prices and reviews')"
-                      className="w-full px-4 py-4 border-2 border-purple-300 rounded-xl focus:outline-none focus:border-purple-500 focus:ring-2 focus:ring-purple-200 transition-all resize-none"
-                      rows={4}
-                    />
-                  </motion.div>
-                )}
-              </motion.div>
-            )}
-          </AnimatePresence>
 
           {/* Scrape Button */}
           <motion.button
@@ -223,7 +137,7 @@ export default function Home() {
             whileTap={{ scale: 0.98 }}
             onClick={handleScrape}
             disabled={loading}
-            className="w-full px-8 py-4 bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white font-bold text-lg rounded-xl shadow-lg disabled:opacity-50 disabled:cursor-not-allowed transition-all flex items-center justify-center gap-3"
+            className="w-full px-8 py-4 bg-gradient-to-r from-purple-500 to-purple-600 hover:from-purple-600 hover:to-purple-700 text-white font-bold text-lg rounded-xl shadow-lg disabled:opacity-50 disabled:cursor-not-allowed transition-all flex items-center justify-center gap-3"
           >
             {loading ? (
               <>
@@ -239,6 +153,21 @@ export default function Home() {
           </motion.button>
         </motion.div>
 
+        {/* Recent Jobs Section - Placeholder */}
+        {!error && !result && (
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.3 }}
+            className="w-full max-w-2xl mt-12"
+          >
+            <h2 className="text-2xl font-bold text-gray-800 mb-6">Recent Jobs</h2>
+            <div className="bg-gray-100 h-48 rounded-lg flex items-center justify-center">
+              <p className="text-gray-500">No recent jobs</p>
+            </div>
+          </motion.div>
+        )}
+
         {/* Error Display */}
         <AnimatePresence>
           {error && (
@@ -246,7 +175,7 @@ export default function Home() {
               initial={{ opacity: 0, y: 20, scale: 0.95 }}
               animate={{ opacity: 1, y: 0, scale: 1 }}
               exit={{ opacity: 0, y: -20, scale: 0.95 }}
-              className="mb-8 p-6 bg-red-50 border-2 border-red-500 rounded-xl"
+              className="w-full max-w-2xl mt-6 p-6 bg-red-50 border-2 border-red-500 rounded-xl"
             >
               <div className="flex items-start gap-4">
                 <div className="p-3 bg-red-100 rounded-lg">
@@ -279,7 +208,7 @@ export default function Home() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -20 }}
-              className="space-y-6"
+              className="w-full max-w-4xl space-y-6 mt-6"
             >
               {/* Success Header */}
               <motion.div
