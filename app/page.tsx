@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Search, Sparkles, Loader2, AlertCircle, CheckCircle, Brain, Zap, Globe, MessageSquare } from 'lucide-react';
+import { Search, Sparkles, Loader2, AlertCircle, CheckCircle, Brain, Zap, Globe, MessageSquare, Eye } from 'lucide-react';
 import Link from 'next/link';
 
 export default function Home() {
@@ -52,218 +52,191 @@ export default function Home() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900">
-      {/* Animated background */}
-      <div className="fixed inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl animate-pulse"></div>
-        <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl animate-pulse delay-1000"></div>
-      </div>
-
-      {/* Navigation */}
-      <nav className="relative z-10 border-b border-white/10 backdrop-blur-xl">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center py-4">
-            <motion.div
-              initial={{ opacity: 0, x: -20 }}
-              animate={{ opacity: 1, x: 0 }}
-              className="flex items-center space-x-2"
-            >
-              <Sparkles className="w-8 h-8 text-purple-400" />
-              <span className="text-2xl font-bold text-white">WebScraper AI</span>
-            </motion.div>
-            <Link href="/stats">
-              <motion.button
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                className="px-6 py-2 bg-white/10 hover:bg-white/20 text-white rounded-lg transition-colors backdrop-blur-sm border border-white/20"
-              >
-                View Stats
-              </motion.button>
-            </Link>
-          </div>
-        </div>
-      </nav>
-
-      {/* Main Content */}
-      <main className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50">
+      {/* Sidebar Navigation */}
+      <div className="fixed left-0 top-0 h-full w-64 bg-gradient-to-b from-blue-600 via-purple-600 to-pink-600 shadow-2xl text-white p-6 z-40">
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-          className="text-center mb-12"
+          className="mb-12"
         >
-          <h1 className="text-5xl sm:text-7xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-400 via-pink-400 to-blue-400 mb-6">
-            Intelligent Web Scraping
-          </h1>
-          <p className="text-xl sm:text-2xl text-gray-300 mb-4">
-            Powered by <span className="text-purple-400 font-bold">Gemini AI</span> for advanced content analysis
-          </p>
-          <div className="flex justify-center gap-6 mt-6">
-            <div className="flex items-center gap-2 text-gray-400">
-              <Zap className="w-5 h-5 text-yellow-400" />
-              <span>Lightning Fast</span>
-            </div>
-            <div className="flex items-center gap-2 text-gray-400">
-              <Brain className="w-5 h-5 text-purple-400" />
-              <span>AI-Powered</span>
-            </div>
-            <div className="flex items-center gap-2 text-gray-400">
-              <Globe className="w-5 h-5 text-blue-400" />
-              <span>Any Website</span>
-            </div>
+          <div className="text-3xl font-bold mb-2 flex items-center gap-2">
+            <Sparkles className="w-8 h-8 text-yellow-300" />
+            WebScraper
           </div>
+          <p className="text-blue-100 text-sm">AI-Powered Content Extraction</p>
         </motion.div>
 
-        {/* Scraper Input */}
+        <nav className="space-y-4">
+          {[
+            { icon: '📊', label: 'Dashboard', href: '/stats', active: false },
+            { icon: '✨', label: 'New Scrape', href: '#', active: true },
+            { icon: '📁', label: 'My Projects', href: '#', active: false },
+            { icon: '⚙️', label: 'Settings', href: '#', active: false },
+            { icon: '❓', label: 'Help & Support', href: '#', active: false },
+          ].map((item, idx) => (
+            <motion.button
+              key={idx}
+              whileHover={{ x: 5 }}
+              className={`w-full text-left px-4 py-3 rounded-lg transition-all flex items-center gap-3 ${
+                item.active
+                  ? 'bg-white/30 border-2 border-white'
+                  : 'hover:bg-white/10'
+              }`}
+            >
+              <span className="text-xl">{item.icon}</span>
+              <span className="font-medium">{item.label}</span>
+            </motion.button>
+          ))}
+        </nav>
+      </div>
+
+      {/* Main Content */}
+      <div className="ml-64 min-h-screen p-8">
+        {/* Header */}
+        <div className="flex justify-between items-center mb-8">
+          <div>
+            <h1 className="text-4xl font-bold text-gray-800">Create New Scrape</h1>
+            <p className="text-gray-600 mt-2">Extract and analyze content with AI</p>
+          </div>
+          <Link href="/stats">
+            <motion.button
+              whileHover={{ scale: 1.05 }}
+              className="px-6 py-3 bg-gradient-to-r from-blue-500 to-purple-500 text-white rounded-lg font-semibold shadow-lg hover:shadow-xl transition-all"
+            >
+              📊 View Dashboard
+            </motion.button>
+          </Link>
+        </div>
+
+        {/* Input Form Card */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.2 }}
-          className="bg-white/10 backdrop-blur-xl rounded-2xl p-8 border border-white/20 shadow-2xl"
+          className="bg-white rounded-2xl shadow-xl p-8 border-2 border-gray-100 mb-8"
         >
           {/* Mode Selection */}
-          <div className="flex justify-center space-x-4 mb-8">
-            <motion.button
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              onClick={() => {
-                setMode('basic');
-                setShowPromptInput(false);
-                setCustomPrompt('');
-              }}
-              className={`px-8 py-4 rounded-xl font-semibold transition-all flex items-center gap-2 ${
-                mode === 'basic'
-                  ? 'bg-gradient-to-r from-blue-600 to-cyan-600 text-white shadow-lg shadow-blue-500/50'
-                  : 'bg-white/5 text-gray-300 hover:bg-white/10'
-              }`}
-            >
-              <Globe className="w-5 h-5" />
-              <div className="text-left">
-                <div>Quick Scrape</div>
-                <div className="text-xs opacity-80">Basic extraction</div>
-              </div>
-            </motion.button>
-            <motion.button
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              onClick={() => setMode('nerd')}
-              className={`px-8 py-4 rounded-xl font-semibold transition-all flex items-center gap-2 ${
-                mode === 'nerd'
-                  ? 'bg-gradient-to-r from-purple-600 via-pink-600 to-purple-600 text-white shadow-lg shadow-purple-500/50'
-                  : 'bg-white/5 text-gray-300 hover:bg-white/10'
-              }`}
-            >
-              <Brain className="w-5 h-5" />
-              <div className="text-left">
-                <div className="flex items-center gap-1">
-                  <span>AI Scrape</span>
-                  <Sparkles className="w-4 h-4" />
-                </div>
-                <div className="text-xs opacity-80">Deep AI analysis</div>
-              </div>
-            </motion.button>
+          <div className="mb-8">
+            <label className="block text-lg font-bold text-gray-800 mb-4">Scraping Mode</label>
+            <div className="grid grid-cols-2 gap-4">
+              <motion.button
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+                onClick={() => {
+                  setMode('basic');
+                  setShowPromptInput(false);
+                  setCustomPrompt('');
+                }}
+                className={`p-6 rounded-xl font-bold text-lg transition-all border-2 ${
+                  mode === 'basic'
+                    ? 'bg-gradient-to-br from-blue-500 to-blue-600 text-white border-blue-700 shadow-lg'
+                    : 'bg-gray-100 text-gray-700 border-gray-300 hover:border-blue-400'
+                }`}
+              >
+                <Globe className="w-6 h-6 mx-auto mb-2" />
+                Quick Scrape
+                <p className="text-sm opacity-90 mt-1">Basic extraction</p>
+              </motion.button>
+              <motion.button
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+                onClick={() => setMode('nerd')}
+                className={`p-6 rounded-xl font-bold text-lg transition-all border-2 ${
+                  mode === 'nerd'
+                    ? 'bg-gradient-to-br from-purple-500 to-pink-600 text-white border-purple-700 shadow-lg'
+                    : 'bg-gray-100 text-gray-700 border-gray-300 hover:border-purple-400'
+                }`}
+              >
+                <Brain className="w-6 h-6 mx-auto mb-2" />
+                AI Scrape
+                <p className="text-sm opacity-90 mt-1">Deep analysis</p>
+              </motion.button>
+            </div>
           </div>
 
           {/* URL Input */}
-          <div className="space-y-4">
+          <div className="mb-6">
+            <label className="block text-lg font-bold text-gray-800 mb-3">Target URL</label>
             <div className="relative">
-              <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5 z-10" />
+              <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
               <input
                 type="url"
                 value={url}
                 onChange={(e) => setUrl(e.target.value)}
-                placeholder="Enter website URL (e.g., https://example.com)"
-                className="w-full pl-12 pr-4 py-5 bg-white/10 border-2 border-white/20 rounded-xl text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all text-lg"
+                placeholder="https://example.com"
+                className="w-full pl-12 pr-4 py-4 border-2 border-gray-300 rounded-xl focus:outline-none focus:border-purple-500 focus:ring-2 focus:ring-purple-200 transition-all text-base"
                 onKeyPress={(e) => e.key === 'Enter' && handleScrape()}
               />
             </div>
-
-            {/* Custom Prompt for Nerd Mode */}
-            <AnimatePresence>
-              {mode === 'nerd' && (
-                <motion.div
-                  initial={{ opacity: 0, height: 0 }}
-                  animate={{ opacity: 1, height: 'auto' }}
-                  exit={{ opacity: 0, height: 0 }}
-                  className="space-y-3"
-                >
-                  <button
-                    onClick={() => setShowPromptInput(!showPromptInput)}
-                    className="flex items-center gap-2 text-purple-400 hover:text-purple-300 transition-colors"
-                  >
-                    <MessageSquare className="w-4 h-4" />
-                    <span className="text-sm font-medium">
-                      {showPromptInput ? 'Hide' : 'Customize'} AI Instructions
-                    </span>
-                  </button>
-                  
-                  {showPromptInput && (
-                    <motion.div
-                      initial={{ opacity: 0, y: -10 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      className="relative"
-                    >
-                      <MessageSquare className="absolute left-4 top-4 text-gray-400 w-5 h-5 z-10" />
-                      <textarea
-                        value={customPrompt}
-                        onChange={(e) => setCustomPrompt(e.target.value)}
-                        placeholder="Tell Gemini AI what to analyze... (e.g., 'Extract all product prices and reviews', 'Summarize the main arguments', 'Find contact information')"
-                        className="w-full pl-12 pr-4 py-4 bg-white/10 border-2 border-purple-500/30 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all resize-none"
-                        rows={4}
-                      />
-                      <div className="mt-2 flex items-center gap-2 text-xs text-gray-400">
-                        <Sparkles className="w-3 h-3" />
-                        <span>Custom instructions help Gemini understand exactly what you need</span>
-                      </div>
-                    </motion.div>
-                  )}
-                </motion.div>
-              )}
-            </AnimatePresence>
-
-            <motion.button
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
-              onClick={handleScrape}
-              disabled={loading}
-              className="w-full px-8 py-5 bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white font-bold text-lg rounded-xl shadow-lg shadow-purple-500/50 disabled:opacity-50 disabled:cursor-not-allowed transition-all flex items-center justify-center gap-3"
-            >
-              {loading ? (
-                <>
-                  <Loader2 className="w-6 h-6 animate-spin" />
-                  <span>Scraping in progress...</span>
-                </>
-              ) : (
-                <>
-                  <Zap className="w-6 h-6" />
-                  <span>Start Scraping</span>
-                </>
-              )}
-            </motion.button>
           </div>
 
-          {/* Mode Description */}
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={mode}
-              initial={{ opacity: 0, height: 0 }}
-              animate={{ opacity: 1, height: 'auto' }}
-              exit={{ opacity: 0, height: 0 }}
-              className="mt-6 p-5 bg-gradient-to-r from-white/10 to-white/5 rounded-xl border border-white/10"
-            >
-              <p className="text-gray-200 text-sm leading-relaxed">
-                {mode === 'basic' ? (
-                  <>
-                    <span className="font-semibold text-blue-400">⚡ Quick Scrape Mode:</span> Extracts essential information including title, description, text content, images, links, and metadata. Perfect for fast data collection.
-                  </>
-                ) : (
-                  <>
-                    <span className="font-semibold text-purple-400">🧠 AI Scrape Mode:</span> Unleashes Gemini AI to perform deep content analysis, extract structured data, identify key insights, perform sentiment analysis, and provide intelligent summaries. {!showPromptInput && <span className="text-purple-300 cursor-pointer hover:underline" onClick={() => setShowPromptInput(true)}>Customize instructions →</span>}
-                  </>
+          {/* Data Type Selection */}
+          <div className="mb-6">
+            <label className="block text-lg font-bold text-gray-800 mb-3">Data Type</label>
+            <select className="w-full px-4 py-3 border-2 border-gray-300 rounded-xl focus:outline-none focus:border-purple-500 focus:ring-2 focus:ring-purple-200 transition-all text-base bg-white">
+              <option>Text, Images, Tables</option>
+              <option>Text Only</option>
+              <option>Images Only</option>
+              <option>Tables Only</option>
+            </select>
+          </div>
+
+          {/* Custom Prompt for Nerd Mode */}
+          <AnimatePresence>
+            {mode === 'nerd' && (
+              <motion.div
+                initial={{ opacity: 0, height: 0 }}
+                animate={{ opacity: 1, height: 'auto' }}
+                exit={{ opacity: 0, height: 0 }}
+                className="mb-6"
+              >
+                <button
+                  onClick={() => setShowPromptInput(!showPromptInput)}
+                  className="flex items-center gap-2 text-purple-600 hover:text-purple-700 font-semibold mb-3 transition-colors"
+                >
+                  <MessageSquare className="w-5 h-5" />
+                  {showPromptInput ? 'Hide' : 'Customize'} AI Instructions
+                </button>
+                
+                {showPromptInput && (
+                  <motion.div
+                    initial={{ opacity: 0, y: -10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    className="relative"
+                  >
+                    <textarea
+                      value={customPrompt}
+                      onChange={(e) => setCustomPrompt(e.target.value)}
+                      placeholder="Tell Gemini AI what to analyze... (e.g., 'Extract all product prices and reviews')"
+                      className="w-full px-4 py-4 border-2 border-purple-300 rounded-xl focus:outline-none focus:border-purple-500 focus:ring-2 focus:ring-purple-200 transition-all resize-none"
+                      rows={4}
+                    />
+                  </motion.div>
                 )}
-              </p>
-            </motion.div>
+              </motion.div>
+            )}
           </AnimatePresence>
+
+          {/* Scrape Button */}
+          <motion.button
+            whileHover={{ scale: 1.02 }}
+            whileTap={{ scale: 0.98 }}
+            onClick={handleScrape}
+            disabled={loading}
+            className="w-full px-8 py-4 bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white font-bold text-lg rounded-xl shadow-lg disabled:opacity-50 disabled:cursor-not-allowed transition-all flex items-center justify-center gap-3"
+          >
+            {loading ? (
+              <>
+                <Loader2 className="w-6 h-6 animate-spin" />
+                <span>Scraping in progress...</span>
+              </>
+            ) : (
+              <>
+                <Zap className="w-6 h-6" />
+                <span>Start Scraping</span>
+              </>
+            )}
+          </motion.button>
         </motion.div>
 
         {/* Error Display */}
@@ -273,25 +246,27 @@ export default function Home() {
               initial={{ opacity: 0, y: 20, scale: 0.95 }}
               animate={{ opacity: 1, y: 0, scale: 1 }}
               exit={{ opacity: 0, y: -20, scale: 0.95 }}
-              className="mt-6 p-6 bg-red-500/20 border-2 border-red-500/50 rounded-xl backdrop-blur-xl"
+              className="mb-8 p-6 bg-red-50 border-2 border-red-500 rounded-xl"
             >
-              <div className="flex items-start space-x-4">
-                <div className="p-2 bg-red-500 rounded-lg">
-                  <AlertCircle className="w-6 h-6 text-white flex-shrink-0" />
+              <div className="flex items-start gap-4">
+                <div className="p-3 bg-red-100 rounded-lg">
+                  <AlertCircle className="w-6 h-6 text-red-600" />
                 </div>
                 <div className="flex-1">
-                  <h3 className="text-red-300 font-bold text-lg mb-2">Scraping Failed</h3>
-                  <p className="text-gray-200 mb-3">{error}</p>
-                  <div className="text-sm text-gray-400 space-y-1">
-                    <p>Common solutions:</p>
-                    <ul className="list-disc list-inside space-y-1 ml-2">
-                      <li>Verify the URL is correct and accessible</li>
-                      <li>Check if the website blocks automated access</li>
-                      <li>Ensure the URL includes http:// or https://</li>
-                      <li>Try again in a few moments</li>
-                    </ul>
-                  </div>
+                  <h3 className="text-red-700 font-bold text-lg">Scraping Failed</h3>
+                  <p className="text-red-600 mt-2">{error}</p>
+                  <ul className="mt-3 text-sm text-red-600 list-disc list-inside space-y-1">
+                    <li>Verify the URL is correct and accessible</li>
+                    <li>Check if the website blocks automated access</li>
+                    <li>Try again in a few moments</li>
+                  </ul>
                 </div>
+                <button
+                  onClick={() => setError(null)}
+                  className="text-red-500 hover:text-red-700 font-bold"
+                >
+                  ✕
+                </button>
               </div>
             </motion.div>
           )}
@@ -304,25 +279,25 @@ export default function Home() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -20 }}
-              className="mt-8 space-y-6"
+              className="space-y-6"
             >
               {/* Success Header */}
               <motion.div
                 initial={{ opacity: 0, scale: 0.95 }}
                 animate={{ opacity: 1, scale: 1 }}
-                className="p-6 bg-gradient-to-r from-green-500/20 to-emerald-500/20 border-2 border-green-500/50 rounded-xl backdrop-blur-xl"
+                className="p-6 bg-gradient-to-r from-green-50 to-emerald-50 border-2 border-green-500 rounded-xl"
               >
                 <div className="flex items-center justify-between">
-                  <div className="flex items-center space-x-3">
-                    <div className="p-2 bg-green-500 rounded-lg">
-                      <CheckCircle className="w-6 h-6 text-white" />
+                  <div className="flex items-center gap-4">
+                    <div className="p-3 bg-green-100 rounded-lg">
+                      <CheckCircle className="w-7 h-7 text-green-600" />
                     </div>
                     <div>
-                      <h3 className="text-green-300 font-bold text-lg">
+                      <h3 className="text-green-700 font-bold text-xl">
                         Scraping Completed Successfully!
                       </h3>
-                      <p className="text-gray-300 text-sm">
-                        Extracted and analyzed {result.metadata.wordCount.toLocaleString()} words in {(result.metadata.scrapeDuration / 1000).toFixed(2)}s
+                      <p className="text-green-600 text-sm">
+                        Extracted {result.metadata.wordCount.toLocaleString()} words in {(result.metadata.scrapeDuration / 1000).toFixed(2)}s
                       </p>
                     </div>
                   </div>
@@ -334,46 +309,46 @@ export default function Home() {
                       setUrl('');
                       setCustomPrompt('');
                     }}
-                    className="px-4 py-2 bg-white/10 hover:bg-white/20 text-white rounded-lg transition-colors text-sm font-medium"
+                    className="px-6 py-2 bg-green-100 hover:bg-green-200 text-green-700 font-semibold rounded-lg transition-all"
                   >
                     New Scrape
                   </motion.button>
                 </div>
               </motion.div>
 
-              {/* Basic Info */}
+              {/* Basic Info Card */}
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.1 }}
-                className="bg-white/10 backdrop-blur-xl rounded-xl p-6 border border-white/20"
+                className="bg-white rounded-xl p-8 shadow-lg border-2 border-gray-100"
               >
-                <h2 className="text-2xl font-bold text-white mb-4">{result.title}</h2>
-                <p className="text-gray-300 mb-6">{result.description}</p>
+                <h2 className="text-3xl font-bold text-gray-800 mb-3">{result.title}</h2>
+                <p className="text-gray-600 text-lg mb-6">{result.description}</p>
 
                 {/* Metadata Grid */}
-                <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
-                  <div className="bg-white/5 p-4 rounded-lg">
-                    <p className="text-gray-400 text-sm mb-1">Word Count</p>
-                    <p className="text-2xl font-bold text-white">
-                      {result.metadata.wordCount.toLocaleString()}
+                <div className="grid grid-cols-4 gap-4">
+                  <div className="bg-gradient-to-br from-blue-50 to-blue-100 p-5 rounded-lg border-2 border-blue-200">
+                    <p className="text-gray-600 text-sm font-semibold mb-2">📊 Word Count</p>
+                    <p className="text-3xl font-bold text-blue-600">
+                      {(result.metadata.wordCount / 1000).toFixed(1)}K
                     </p>
                   </div>
-                  <div className="bg-white/5 p-4 rounded-lg">
-                    <p className="text-gray-400 text-sm mb-1">Images</p>
-                    <p className="text-2xl font-bold text-white">
+                  <div className="bg-gradient-to-br from-purple-50 to-purple-100 p-5 rounded-lg border-2 border-purple-200">
+                    <p className="text-gray-600 text-sm font-semibold mb-2">🖼️ Images</p>
+                    <p className="text-3xl font-bold text-purple-600">
                       {result.metadata.imageCount}
                     </p>
                   </div>
-                  <div className="bg-white/5 p-4 rounded-lg">
-                    <p className="text-gray-400 text-sm mb-1">Links</p>
-                    <p className="text-2xl font-bold text-white">
+                  <div className="bg-gradient-to-br from-green-50 to-green-100 p-5 rounded-lg border-2 border-green-200">
+                    <p className="text-gray-600 text-sm font-semibold mb-2">🔗 Links</p>
+                    <p className="text-3xl font-bold text-green-600">
                       {result.metadata.linkCount}
                     </p>
                   </div>
-                  <div className="bg-white/5 p-4 rounded-lg">
-                    <p className="text-gray-400 text-sm mb-1">Duration</p>
-                    <p className="text-2xl font-bold text-white">
+                  <div className="bg-gradient-to-br from-orange-50 to-orange-100 p-5 rounded-lg border-2 border-orange-200">
+                    <p className="text-gray-600 text-sm font-semibold mb-2">⏱️ Duration</p>
+                    <p className="text-3xl font-bold text-orange-600">
                       {(result.metadata.scrapeDuration / 1000).toFixed(2)}s
                     </p>
                   </div>
@@ -385,13 +360,16 @@ export default function Home() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.2 }}
-                className="bg-white/10 backdrop-blur-xl rounded-xl p-6 border border-white/20"
+                className="bg-white rounded-xl shadow-lg border-2 border-gray-100 overflow-hidden"
               >
-                <h3 className="text-xl font-bold text-white mb-4">Content Preview</h3>
-                <div className="bg-white/5 p-4 rounded-lg max-h-64 overflow-y-auto">
-                  <p className="text-gray-300 whitespace-pre-wrap">
-                    {result.content.substring(0, 1000)}
-                    {result.content.length > 1000 && '...'}
+                <div className="bg-gradient-to-r from-blue-600 to-blue-700 p-6 flex items-center gap-3">
+                  <Eye className="w-6 h-6 text-white" />
+                  <h3 className="text-xl font-bold text-white">Content Preview</h3>
+                </div>
+                <div className="p-8 max-h-96 overflow-y-auto bg-gray-50 border-t-2 border-gray-200">
+                  <p className="text-gray-800 leading-relaxed whitespace-pre-wrap font-medium">
+                    {result.content.substring(0, 1500)}
+                    {result.content.length > 1500 && '\n\n[Content truncated...]'}
                   </p>
                 </div>
               </motion.div>
@@ -402,30 +380,25 @@ export default function Home() {
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.3 }}
-                  className="bg-gradient-to-br from-purple-500/20 via-pink-500/20 to-purple-500/20 backdrop-blur-xl rounded-xl p-8 border-2 border-purple-500/50"
+                  className="bg-white rounded-xl shadow-lg border-2 border-gray-100 overflow-hidden"
                 >
-                  <div className="flex items-center space-x-3 mb-6">
-                    <div className="p-3 bg-purple-600 rounded-lg">
-                      <Brain className="w-7 h-7 text-white" />
-                    </div>
-                    <div>
-                      <h3 className="text-2xl font-bold text-white">Gemini AI Analysis</h3>
-                      <p className="text-purple-300 text-sm">Deep content intelligence & insights</p>
-                    </div>
+                  <div className="bg-gradient-to-r from-purple-600 to-pink-600 p-6 flex items-center gap-3">
+                    <Brain className="w-6 h-6 text-white" />
+                    <h3 className="text-xl font-bold text-white">Gemini AI Analysis</h3>
                   </div>
-                  <div className="bg-black/20 p-6 rounded-xl border border-purple-400/30">
-                    <div className="prose prose-invert max-w-none">
-                      <pre className="text-gray-200 whitespace-pre-wrap font-sans leading-relaxed text-base">
-{result.aiAnalysis}
-                      </pre>
+                  <div className="p-8 bg-gray-50 border-t-2 border-gray-200">
+                    <div className="bg-white p-6 rounded-lg border-2 border-purple-200">
+                      <p className="text-gray-800 leading-relaxed whitespace-pre-wrap">
+                        {result.aiAnalysis}
+                      </p>
                     </div>
+                    {customPrompt && (
+                      <div className="mt-4 p-4 bg-purple-50 rounded-lg border-2 border-purple-200">
+                        <p className="text-xs text-purple-600 font-semibold mb-1">💡 Custom Instructions:</p>
+                        <p className="text-sm text-purple-700">{customPrompt}</p>
+                      </div>
+                    )}
                   </div>
-                  {customPrompt && (
-                    <div className="mt-4 p-4 bg-white/5 rounded-lg border border-white/10">
-                      <p className="text-xs text-gray-400 mb-1">Custom Instructions Used:</p>
-                      <p className="text-sm text-purple-300">{customPrompt}</p>
-                    </div>
-                  )}
                 </motion.div>
               )}
 
@@ -435,48 +408,54 @@ export default function Home() {
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.4 }}
-                  className="bg-white/10 backdrop-blur-xl rounded-xl p-6 border border-white/20"
+                  className="bg-white rounded-xl shadow-lg border-2 border-gray-100 overflow-hidden"
                 >
-                  <h3 className="text-xl font-bold text-white mb-4">Extracted Data</h3>
-                  
-                  {/* Headings */}
-                  {result.extractedData.headings?.length > 0 && (
-                    <div className="mb-6">
-                      <h4 className="text-lg font-semibold text-purple-400 mb-3">
-                        Headings
-                      </h4>
-                      <div className="space-y-2">
-                        {result.extractedData.headings.slice(0, 10).map((heading: string, i: number) => (
-                          <div key={i} className="bg-white/5 p-3 rounded-lg">
-                            <p className="text-gray-300">{heading}</p>
-                          </div>
-                        ))}
+                  <div className="bg-gradient-to-r from-indigo-600 to-purple-600 p-6 flex items-center gap-3">
+                    <Sparkles className="w-6 h-6 text-white" />
+                    <h3 className="text-xl font-bold text-white">Extracted Data</h3>
+                  </div>
+                  <div className="p-8 bg-gray-50 border-t-2 border-gray-200 space-y-8">
+                    {/* Headings */}
+                    {result.extractedData.headings?.length > 0 && (
+                      <div>
+                        <h4 className="text-lg font-bold text-gray-800 mb-4 flex items-center gap-2">
+                          <span className="text-2xl">📝</span>
+                          Headings ({result.extractedData.headings.length})
+                        </h4>
+                        <div className="grid grid-cols-2 gap-3">
+                          {result.extractedData.headings.slice(0, 8).map((heading: string, i: number) => (
+                            <div key={i} className="bg-white p-4 rounded-lg border-2 border-gray-200 hover:border-indigo-400 transition-colors">
+                              <p className="text-gray-700 font-medium">{heading}</p>
+                            </div>
+                          ))}
+                        </div>
                       </div>
-                    </div>
-                  )}
+                    )}
 
-                  {/* Images */}
-                  {result.extractedData.images?.length > 0 && (
-                    <div className="mb-6">
-                      <h4 className="text-lg font-semibold text-purple-400 mb-3">
-                        Images ({result.extractedData.images.length})
-                      </h4>
-                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                        {result.extractedData.images.slice(0, 6).map((img: any, i: number) => (
-                          <div key={i} className="bg-white/5 p-3 rounded-lg">
-                            <p className="text-gray-400 text-sm mb-1">Alt: {img.alt || 'N/A'}</p>
-                            <p className="text-gray-300 text-xs truncate">{img.src}</p>
-                          </div>
-                        ))}
+                    {/* Images */}
+                    {result.extractedData.images?.length > 0 && (
+                      <div>
+                        <h4 className="text-lg font-bold text-gray-800 mb-4 flex items-center gap-2">
+                          <span className="text-2xl">🖼️</span>
+                          Images ({result.extractedData.images.length})
+                        </h4>
+                        <div className="grid grid-cols-3 gap-3">
+                          {result.extractedData.images.slice(0, 6).map((img: any, i: number) => (
+                            <div key={i} className="bg-white p-4 rounded-lg border-2 border-gray-200 hover:border-pink-400 transition-colors">
+                              <p className="text-gray-700 font-medium text-sm mb-2">Alt: {img.alt || 'N/A'}</p>
+                              <p className="text-gray-600 text-xs truncate break-all">{img.src}</p>
+                            </div>
+                          ))}
+                        </div>
                       </div>
-                    </div>
-                  )}
+                    )}
+                  </div>
                 </motion.div>
               )}
             </motion.div>
           )}
         </AnimatePresence>
-      </main>
+      </div>
     </div>
   );
 }
